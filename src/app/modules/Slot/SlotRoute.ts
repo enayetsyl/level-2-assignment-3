@@ -4,10 +4,10 @@ import express from 'express';
 
 const router = express.Router();
 
-router.post('/', createSlot);
+// router.post('/', createSlot);
 
 
-router.get('/availability', getAllAvailableSlots );
+// router.get('/availability', getAllAvailableSlots );
 
 
 

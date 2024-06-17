@@ -4,15 +4,15 @@ import express from 'express';
 
 const router = express.Router();
 
-router.post('/', createBooking);
+// router.post('/', createBooking);
 
-router.get('/my-bookings', getMyBooking );
+// router.get('/my-bookings', getMyBooking );
 
-router.get('/', getAllBookings );
+// router.get('/', getAllBookings );
 
-router.put('/:id', updateABooking );
+// router.put('/:id', updateABooking );
 
-router.delete('/:id', deleteABooking );
+// router.delete('/:id', deleteABooking );
 
 
 

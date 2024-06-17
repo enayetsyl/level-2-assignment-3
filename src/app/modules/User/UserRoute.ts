@@ -1,12 +1,15 @@
 import express from 'express';
+import { UserControllers } from './UserControllers';
+import validateRequest from '../../middleware/validateRequest';
+import { UserValidation } from './UserValidation';
 
 
 
 const router = express.Router();
 
-router.post('/signup', );
+router.post('/signup', validateRequest(UserValidation.userValidationSchema), UserControllers.signUpUser );
 
-router.post('/login', );
+router.post('/login', UserControllers.loginUser);
 
 
 
