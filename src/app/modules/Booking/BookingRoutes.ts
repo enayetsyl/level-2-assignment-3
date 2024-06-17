@@ -1,22 +1,16 @@
 import express from 'express';
-
-
+import { BookingControllers } from './BookingControllers';
 
 const router = express.Router();
 
-// router.post('/', createBooking);
+router.post('/', BookingControllers.createBooking);
 
-// router.get('/my-bookings', getMyBooking );
+router.get('/my-bookings', BookingControllers.getMyBooking );
 
-// router.get('/', getAllBookings );
+router.get('/', BookingControllers.getAllBookings );
 
-// router.put('/:id', updateABooking );
+router.put('/:id', BookingControllers.updateABooking );
 
-// router.delete('/:id', deleteABooking );
-
-
-
-
-
+router.delete('/:id', BookingControllers.deleteABooking );
 
 export const BookingRoutes = router;

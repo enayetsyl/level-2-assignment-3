@@ -24,7 +24,7 @@ isBooked: {
 type: Boolean,
 default: false
 }
-})
+}, {timestamps: true})
 
 // Add a virtual property to format the date
 slotModel.virtual('formattedDate').get(function() {
