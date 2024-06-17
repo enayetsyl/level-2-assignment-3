@@ -19,8 +19,8 @@ async function main() {
 
 main();
 
-process.on('unhandledRejection', () => {
-  console.log(`😈 unahandledRejection is detected , shutting down ...`);
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
   if (server) {
     server.close(() => {
       process.exit(1);

@@ -8,10 +8,12 @@ import express, { Application } from 'express';
 import globalErrorHandler from './app/middleware/globalErrorHandler';
 import notFound from './app/middleware/notFound';
 import router from './app/routes';
+import bodyParser from 'body-parser';
 
 const app: Application = express();
 
 //parsers
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:3000'] }));
