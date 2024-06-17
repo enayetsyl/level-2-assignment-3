@@ -1,13 +1,14 @@
 import express from 'express';
+import { SlotControllers } from './SlotControllers';
 
 
 
 const router = express.Router();
 
-// router.post('/', createSlot);
+router.post('/', SlotControllers.createSlot);
 
 
-// router.get('/availability', getAllAvailableSlots );
+router.get('/availability', SlotControllers.getAllAvailableSlots );
 
 
 
