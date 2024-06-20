@@ -47,18 +47,17 @@ const loginUser = async (payload: TLoginUser) => {
 
   let accessToken = createToken(jwtPayload, config.jwt_access_secret as string, config.jwt_access_expires_in as string)
 
-  if(user){
+  console.log(accessToken, user)
+ 
+  
     const editedUser = user.toObject()
 
     delete editedUser.__v;
     delete editedUser.createdAt;
     delete editedUser.updatedAt;
 
-    return editedUser
-  }
-
-  // accessToken = `Bearer ${accessToken}`
-  return {accessToken, user}
+    // accessToken = `Bearer ${accessToken}`
+  return {accessToken, user: editedUser}
 
 };
 
