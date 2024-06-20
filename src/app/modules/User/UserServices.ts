@@ -7,11 +7,19 @@ import { createToken } from '../../utils/authUtils';
 import config from '../../config';
 
 const signUpUser = async (userData: TUser) => {
-  console.log('user data', userData)
   
   const result = await User.create(userData)
+
+  if(result){
+    const editedResult = result.toObject()
+
+    delete editedResult.__v;
+    delete editedResult.createdAt;
+    delete editedResult.updatedAt;
+
+    return editedResult    
+  } 
   
-  console.log('result', result)
 
   return result
 

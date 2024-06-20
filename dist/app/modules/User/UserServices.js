@@ -20,9 +20,14 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const authUtils_1 = require("../../utils/authUtils");
 const config_1 = __importDefault(require("../../config"));
 const signUpUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('user data', userData);
     const result = yield UserModel_1.User.create(userData);
-    console.log('result', result);
+    if (result) {
+        const editedResult = result.toObject();
+        delete editedResult.__v;
+        delete editedResult.createdAt;
+        delete editedResult.updatedAt;
+        return editedResult;
+    }
     return result;
 });
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {

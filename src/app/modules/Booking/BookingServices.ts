@@ -68,9 +68,7 @@ const createBookingIntoDB = async (bookingData: TBooking) => {
     // Commit and end session for successful operation
     await session.commitTransaction();
     await session.endSession();
-    console.log("total amount", booking);
-    console.log("total amount", populatedBooking);
-
+  
     return populatedBooking;
   } catch (error) {
     console.log(error);
@@ -119,7 +117,7 @@ const updateBookingIntoDB = async(id: string, payload: Partial<TBooking>) => {
 
     return updatedBookingResult
   }
-  console.log(result)
+
   return result
 }
 

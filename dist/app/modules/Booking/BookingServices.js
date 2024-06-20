@@ -62,8 +62,6 @@ const createBookingIntoDB = (bookingData) => __awaiter(void 0, void 0, void 0, f
         // Commit and end session for successful operation
         yield session.commitTransaction();
         yield session.endSession();
-        console.log("total amount", booking);
-        console.log("total amount", populatedBooking);
         return populatedBooking;
     }
     catch (error) {
@@ -103,7 +101,6 @@ const updateBookingIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, f
         delete updatedBookingResult.updatedAt;
         return updatedBookingResult;
     }
-    console.log(result);
     return result;
 });
 const deleteBookingFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
