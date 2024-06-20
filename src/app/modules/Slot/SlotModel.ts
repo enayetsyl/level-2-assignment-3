@@ -24,18 +24,33 @@ isBooked: {
 type: Boolean,
 default: false
 }
-}, {timestamps: true})
+}, {
+  timestamps: true,
+  toJSON: {
+    virtuals: true, 
+    transform: function(doc, ret) {
+      ret.date = formatDate(new Date(ret.date));
+      delete ret.id;
+      return ret;
+    }
+  },
+  toObject: {
+    virtuals: true,
+    transform: function(doc, ret){
+      ret.date = formatDate(new Date(ret.date));
+      delete ret.id; // Delete the virtual id field
+      return ret;
+    }
+  }
+})
 
-// Add a virtual property to format the date
-slotModel.virtual('formattedDate').get(function() {
-  const date = new Date(this.date);
-  const year = date.getFullYear().toString().slice(-4); // Get last two digits of year
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month and pad with leading zero if needed
-  const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if needed
+// Utility function to format the date
+const formatDate = (date) => {
+  const year = date.getFullYear().toString().padStart(4, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
   return `${year}-${month}-${day}`;
-});
+};
 
-// Ensure virtual fields are included when converting documents to JSON
-slotModel.set('toJSON', { virtuals: true });
 
 export const Slot = model<TSlot>("Slot", slotModel)

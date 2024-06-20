@@ -32,4 +32,19 @@ const roomSchema = new Schema<TRoom>({
   }
 });
 
+roomSchema.pre("find", function(next) {
+  this.find({idDeleted: {$ne: true}})
+  next()
+})
+
+roomSchema.pre("findOne", function(next) {
+  this.findOne({isDeleted: {$ne: true}})
+})
+
+roomSchema.pre("aggregate", function(next) {
+  this.pipeline().unshift({
+    $match: { isDeleted: {$ne: true}}
+  })
+})
+
 export const Room = model<TRoom>("Room", roomSchema);

@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { UserServices } from './UserServices';
+import config from '../../config';
 
 
 const signUpUser = catchAsync(async (req, res) => {
@@ -19,7 +20,15 @@ const signUpUser = catchAsync(async (req, res) => {
 
 const loginUser = catchAsync(async (req, res) => {
   
-  const result = await UserServices.loginUser()
+  const result = await UserServices.loginUser(req.body)
+
+  const { accessToken } = result;
+
+  res.cookie('accessToken', accessToken, {
+    secure: config.NODE_ENV === 'production',
+    httpOnly: true,
+  })
+
 
   // Send success response
   sendResponse(res, {

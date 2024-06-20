@@ -14,43 +14,51 @@ sendResponse(res, {
   data: result,
 });
 })
+
 const getMyBooking = catchAsync(async(req,res) => {
-  
+    const {userId} = req.params
+
+    const result = await BookingServices.getUserBooking(userId)
+
   // Send success response
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Slots created  successfully',
+    message: 'User bookings retrieved successfully',
     data: result,
   });
 })
 const getAllBookings = catchAsync(async(req,res) => {
-  
+  const result = await BookingServices.getAllBookingsFromDB()
+
   // Send success response
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Slots created  successfully',
+    message: 'All bookings retrieved successfully',
     data: result,
   });
 })
 const updateABooking = catchAsync(async(req,res) => {
-  
+  const { id } = req.params;
+  const result = await BookingServices.updateBookingIntoDB(id, req.body)
   // Send success response
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Slots created  successfully',
+    message: 'Booking updated successfully',
     data: result,
   });
 })
+
 const deleteABooking = catchAsync(async(req,res) => {
-  
+  const { id } = req.params
+  const result = await BookingServices.deleteBookingFromDB(id)
   // Send success response
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Slots created  successfully',
+    message: 'Booking deleted successfully',
     data: result,
   });
 })
