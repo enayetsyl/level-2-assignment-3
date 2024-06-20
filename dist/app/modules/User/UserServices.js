@@ -44,8 +44,15 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         role: user.role
     };
     let accessToken = (0, authUtils_1.createToken)(jwtPayload, config_1.default.jwt_access_secret, config_1.default.jwt_access_expires_in);
+    if (user) {
+        const editedUser = user.toObject();
+        delete editedUser.__v;
+        delete editedUser.createdAt;
+        delete editedUser.updatedAt;
+        return editedUser;
+    }
     // accessToken = `Bearer ${accessToken}`
-    return accessToken;
+    return { accessToken, user };
 });
 exports.UserServices = {
     signUpUser, loginUser

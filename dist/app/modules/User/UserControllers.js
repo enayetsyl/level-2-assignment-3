@@ -30,7 +30,7 @@ const signUpUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 }));
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield UserServices_1.UserServices.loginUser(req.body);
-    const { accessToken } = result;
+    const { accessToken, user } = result;
     res.cookie('accessToken', accessToken, {
         secure: config_1.default.NODE_ENV === 'production',
         httpOnly: true,
@@ -40,7 +40,8 @@ const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
         success: true,
         statusCode: http_status_1.default.OK,
         message: 'User logged in successfully',
-        data: result,
+        token: accessToken,
+        data: user,
     });
 }));
 exports.UserControllers = {

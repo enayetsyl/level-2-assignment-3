@@ -22,7 +22,7 @@ const loginUser = catchAsync(async (req, res) => {
   
   const result = await UserServices.loginUser(req.body)
 
-  const { accessToken } = result;
+  const { accessToken, user } = result;
 
   res.cookie('accessToken', accessToken, {
     secure: config.NODE_ENV === 'production',
@@ -35,7 +35,8 @@ const loginUser = catchAsync(async (req, res) => {
     success: true,
     statusCode: httpStatus.OK,
     message: 'User logged in successfully',
-    data: result,
+    token: accessToken,
+    data: user,
   });
 });
 
