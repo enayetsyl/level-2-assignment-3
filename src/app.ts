@@ -21,6 +21,10 @@ app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:3000'] }));
 // application routes
 app.use('/api/', router);
 
+app.use('/', async(req,res) => {
+  res.send("Hello from Room booking service portal.")
+})
+
 // Global Error Handler
 app.use(globalErrorHandler);
 
