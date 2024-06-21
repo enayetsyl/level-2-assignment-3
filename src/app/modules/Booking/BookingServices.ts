@@ -79,18 +79,31 @@ const createBookingIntoDB = async (bookingData: TBooking) => {
 };
 
 const getAllBookingsFromDB = async () => {
-  const result = await Booking.find()
-    .populate("user")
-    .populate("slots")
-    .populate("room");
+  const result = await Booking.find({},{__v:0,  createdAt: 0, updatedAt: 0})
+    .populate({
+      path: "user",
+      select: "-__v -createdAt -updatedAt"
+    })
+    .populate({
+      path: "slots",
+      select: "-__v -createdAt -updatedAt"
+    })
+    .populate({
+      path:"room",
+      select: "-__v"  
+    });
 
   return result;
 };
 
-const getUserBooking = async (userId: string) => {
-  console.log("user id in service", userId);
+const getUserBooking = async (email: string) => {
+  const user = await User.findOne({email})
+  if(!user){
+    throw new AppError(httpStatus.NOT_FOUND, "User not found")
+  }
+
   const result = await Booking.find(
-    { user: userId },
+    { user: user?._id },
     { user: 0, createdAt: 0, updatedAt: 0, __v: 0 }
   )
     .populate({
@@ -102,7 +115,6 @@ const getUserBooking = async (userId: string) => {
       select: "-__v"
     });
 
-  console.log("result in service", result);
   return result;
 };
 

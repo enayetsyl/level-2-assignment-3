@@ -17,6 +17,8 @@ const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const BookingServices_1 = require("./BookingServices");
+const authUtils_1 = require("../../utils/authUtils");
+const config_1 = __importDefault(require("../../config"));
 const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield BookingServices_1.BookingServices.createBookingIntoDB(req.body);
     // Send success response
@@ -28,8 +30,11 @@ const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
     });
 }));
 const getMyBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.params;
-    const result = yield BookingServices_1.BookingServices.getUserBooking(userId);
+    let token = req.headers.authorization;
+    token = token === null || token === void 0 ? void 0 : token.split(' ')[1];
+    const decoded = (0, authUtils_1.verifyToken)(token, config_1.default.jwt_access_secret);
+    const { email } = decoded;
+    const result = yield BookingServices_1.BookingServices.getUserBooking(email);
     // Send success response
     (0, sendResponse_1.default)(res, {
         success: true,

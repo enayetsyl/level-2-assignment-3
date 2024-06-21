@@ -2,6 +2,8 @@ import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync"
 import sendResponse from "../../utils/sendResponse";
 import { BookingServices } from "./BookingServices";
+import { verifyToken } from "../../utils/authUtils";
+import config from "../../config";
 
 const createBooking = catchAsync(async(req,res) => {
   const result = await BookingServices.createBookingIntoDB(req.body)
@@ -16,9 +18,15 @@ sendResponse(res, {
 })
 
 const getMyBooking = catchAsync(async(req,res) => {
-    const {userId} = req.params
+  let token = req.headers.authorization
 
-    const result = await BookingServices.getUserBooking(userId)
+  token = token?.split(' ')[1]
+
+  const decoded = verifyToken(token as string, config.jwt_access_secret as string)
+
+  const {email} = decoded
+
+  const result = await BookingServices.getUserBooking(email)
 
   // Send success response
   sendResponse(res, {

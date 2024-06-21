@@ -72,15 +72,27 @@ const createBookingIntoDB = (bookingData) => __awaiter(void 0, void 0, void 0, f
     }
 });
 const getAllBookingsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield BookingModel_1.Booking.find()
-        .populate("user")
-        .populate("slots")
-        .populate("room");
+    const result = yield BookingModel_1.Booking.find({}, { __v: 0, createdAt: 0, updatedAt: 0 })
+        .populate({
+        path: "user",
+        select: "-__v -createdAt -updatedAt"
+    })
+        .populate({
+        path: "slots",
+        select: "-__v -createdAt -updatedAt"
+    })
+        .populate({
+        path: "room",
+        select: "-__v"
+    });
     return result;
 });
-const getUserBooking = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("user id in service", userId);
-    const result = yield BookingModel_1.Booking.find({ user: userId }, { user: 0, createdAt: 0, updatedAt: 0, __v: 0 })
+const getUserBooking = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield UserModel_1.User.findOne({ email });
+    if (!user) {
+        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+    }
+    const result = yield BookingModel_1.Booking.find({ user: user === null || user === void 0 ? void 0 : user._id }, { user: 0, createdAt: 0, updatedAt: 0, __v: 0 })
         .populate({
         path: "slots",
         select: "-__v -updatedAt"
@@ -89,7 +101,6 @@ const getUserBooking = (userId) => __awaiter(void 0, void 0, void 0, function* (
         path: "room",
         select: "-__v"
     });
-    console.log("result in service", result);
     return result;
 });
 const updateBookingIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {

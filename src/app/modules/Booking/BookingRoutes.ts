@@ -10,7 +10,7 @@ router.post('/',auth('user'), validateRequest(BookingValidation.bookingValidatio
 
 router.get('/',auth('admin'), BookingControllers.getAllBookings );
 
-router.get('/my-bookings/:userId', auth('user'), BookingControllers.getMyBooking );
+router.get('/my-bookings', auth('user'), BookingControllers.getMyBooking );
 
 
 router.put('/:id',auth('admin'), validateRequest(BookingValidation.bookingValidationUpdateSchema),  BookingControllers.updateABooking );
