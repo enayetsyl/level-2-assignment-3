@@ -18,7 +18,6 @@ const AppError_1 = __importDefault(require("../../errors/AppError"));
 const RoomModel_1 = require("../Room/RoomModel");
 const SlotModel_1 = require("./SlotModel");
 const createNewSlot = (slotData) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('slot data', slotData);
     const isRoomExist = yield RoomModel_1.Room.findById(slotData.room);
     if (!isRoomExist) {
         return new AppError_1.default(http_status_1.default.BAD_REQUEST, "No Room found");
@@ -50,8 +49,12 @@ const createNewSlot = (slotData) => __awaiter(void 0, void 0, void 0, function* 
         };
         // Create a new Slot document and save it
         const newSlot = new SlotModel_1.Slot(slot);
-        yield newSlot.save();
-        result.push(slot);
+        const savedData = yield newSlot.save();
+        const newSaveData = savedData.toObject();
+        delete newSaveData.__v;
+        delete newSaveData.createdAt;
+        delete newSaveData.updatedAt;
+        result.push(newSlot);
         // Move to the next hour
         currentStartTime = nextEndTime;
     }

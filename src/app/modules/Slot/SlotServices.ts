@@ -6,7 +6,6 @@ import { Slot } from "./SlotModel"
 
 
 const createNewSlot = async (slotData: TSlot) => {
-  console.log('slot data', slotData)
   const isRoomExist = await Room.findById(slotData.room)
 
   if(!isRoomExist){
@@ -46,8 +45,15 @@ const createNewSlot = async (slotData: TSlot) => {
 
     // Create a new Slot document and save it
     const newSlot = new Slot(slot);
-    await newSlot.save();
-    result.push(slot);
+    const savedData = await newSlot.save();
+
+    const newSaveData = savedData.toObject()
+
+    delete newSaveData.__v;
+    delete newSaveData.createdAt;
+    delete newSaveData.updatedAt;
+
+    result.push(newSlot);
 
     // Move to the next hour
     currentStartTime = nextEndTime;
