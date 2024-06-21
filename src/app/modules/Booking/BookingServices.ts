@@ -108,7 +108,7 @@ const getUserBooking = async (email: string) => {
   )
     .populate({
       path: "slots",
-      select: "-__v -updatedAt"
+      select: "-__v -updatedAt -createdAt"
     })
     .populate({
       path: "room",

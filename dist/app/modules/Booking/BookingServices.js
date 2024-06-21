@@ -95,7 +95,7 @@ const getUserBooking = (email) => __awaiter(void 0, void 0, void 0, function* ()
     const result = yield BookingModel_1.Booking.find({ user: user === null || user === void 0 ? void 0 : user._id }, { user: 0, createdAt: 0, updatedAt: 0, __v: 0 })
         .populate({
         path: "slots",
-        select: "-__v -updatedAt"
+        select: "-__v -updatedAt -createdAt"
     })
         .populate({
         path: "room",
