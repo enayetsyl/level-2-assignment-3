@@ -38,10 +38,12 @@ roomSchema.pre("find", function (next) {
 });
 roomSchema.pre("findOne", function (next) {
     this.findOne({ isDeleted: { $ne: true } });
+    next();
 });
 roomSchema.pre("aggregate", function (next) {
     this.pipeline().unshift({
         $match: { isDeleted: { $ne: true } }
     });
+    next();
 });
 exports.Room = (0, mongoose_1.model)("Room", roomSchema);

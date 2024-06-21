@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoomServices = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
 const RoomModel_1 = require("./RoomModel");
 const createRoomIntoDB = (roomData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield RoomModel_1.Room.create(roomData);
@@ -20,7 +24,13 @@ const getAllRoomsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const getARoomFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(id);
+    if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
+        console.error('Invalid Room ID format:', id);
+    }
+    console.log('room id is ok');
     const result = yield RoomModel_1.Room.findById(id);
+    console.log(result);
     return result;
 });
 const updateARoomIntoDB = (id, updatedRoomData) => __awaiter(void 0, void 0, void 0, function* () {

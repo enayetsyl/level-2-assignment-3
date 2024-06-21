@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import { Room } from "./RoomModel"
 import { TRoom } from "./RoomType"
 
@@ -14,8 +15,13 @@ const getAllRoomsFromDB = async () => {
   return result
 }
 const getARoomFromDB = async (id: string) => {
+  console.log(id)
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    console.error('Invalid Room ID format:', id);
+  }
+  console.log('room id is ok')
   const result = await Room.findById(id)
-
+  console.log(result)
   return result
 }
 
