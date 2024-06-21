@@ -54,7 +54,7 @@ const createNewSlot = (slotData) => __awaiter(void 0, void 0, void 0, function* 
         delete newSaveData.__v;
         delete newSaveData.createdAt;
         delete newSaveData.updatedAt;
-        result.push(newSlot);
+        result.push(newSaveData);
         // Move to the next hour
         currentStartTime = nextEndTime;
     }

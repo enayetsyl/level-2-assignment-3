@@ -53,7 +53,7 @@ const createNewSlot = async (slotData: TSlot) => {
     delete newSaveData.createdAt;
     delete newSaveData.updatedAt;
 
-    result.push(newSlot);
+    result.push(newSaveData);
 
     // Move to the next hour
     currentStartTime = nextEndTime;
