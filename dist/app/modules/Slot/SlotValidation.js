@@ -11,10 +11,10 @@ const timeStringSchema = zod_1.z.string().refine((time) => {
 const slotValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         room: zod_1.z.string(),
-        date: zod_1.z.string().datetime(),
+        date: zod_1.z.string(),
         startTime: timeStringSchema,
         endTime: timeStringSchema,
-        isBooked: zod_1.z.boolean()
+        isBooked: zod_1.z.boolean().default(false)
     })
 });
 exports.SlotValidation = {

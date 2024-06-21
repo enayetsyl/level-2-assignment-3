@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Slot = void 0;
+exports.Slot = exports.formatDate = void 0;
 const mongoose_1 = require("mongoose");
 const slotModel = new mongoose_1.Schema({
     room: {
@@ -29,7 +29,7 @@ const slotModel = new mongoose_1.Schema({
     toJSON: {
         virtuals: true,
         transform: function (doc, ret) {
-            ret.date = formatDate(new Date(ret.date));
+            ret.date = (0, exports.formatDate)(new Date(ret.date));
             delete ret.id;
             return ret;
         }
@@ -37,7 +37,7 @@ const slotModel = new mongoose_1.Schema({
     toObject: {
         virtuals: true,
         transform: function (doc, ret) {
-            ret.date = formatDate(new Date(ret.date));
+            ret.date = (0, exports.formatDate)(new Date(ret.date));
             delete ret.id; // Delete the virtual id field
             return ret;
         }
@@ -50,4 +50,5 @@ const formatDate = (date) => {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
 };
+exports.formatDate = formatDate;
 exports.Slot = (0, mongoose_1.model)("Slot", slotModel);

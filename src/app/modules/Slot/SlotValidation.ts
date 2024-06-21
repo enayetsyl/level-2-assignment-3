@@ -13,10 +13,10 @@ const timeStringSchema = z.string().refine(
 const slotValidationSchema = z.object({
   body: z.object({
     room: z.string(),
-    date: z.string().datetime(),
+    date: z.string(),
     startTime: timeStringSchema,
     endTime: timeStringSchema,
-    isBooked: z.boolean()
+    isBooked: z.boolean().default(false)
   })
 })
 

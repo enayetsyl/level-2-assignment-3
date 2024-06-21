@@ -59,11 +59,12 @@ const createNewSlot = async (slotData: TSlot) => {
 
 
 const getAvailableSlots = async () => {
-  const result = await Slot.find().populate('room')
-  return result.map(slot => ({
-    ...slot.toObject(),
-    date: slot.formattedDate 
-  }));
+  const result = await Slot.find({},{__v:0, createdAt:0, updatedAt:0}).populate({
+    path: 'room',
+    select: "-__v",
+  })
+  return result
+  
 }
 
 

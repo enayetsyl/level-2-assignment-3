@@ -58,8 +58,11 @@ const createNewSlot = (slotData) => __awaiter(void 0, void 0, void 0, function* 
     return result;
 });
 const getAvailableSlots = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield SlotModel_1.Slot.find().populate('room');
-    return result.map(slot => (Object.assign(Object.assign({}, slot.toObject()), { date: slot.formattedDate })));
+    const result = yield SlotModel_1.Slot.find({}, { __v: 0, createdAt: 0, updatedAt: 0 }).populate({
+        path: 'room',
+        select: "-__v",
+    });
+    return result;
 });
 exports.SlotServices = {
     createNewSlot,
