@@ -29,7 +29,7 @@ const getARoomFromDB = async (id: string) => {
 
 const updateARoomIntoDB = async (id : string, updatedRoomData : Partial<TRoom>) => {
   const result = await Room.findByIdAndUpdate(id, updatedRoomData, {new: true, runValidators: true})
-
+  console.log('result', result)
   return result
 }
 

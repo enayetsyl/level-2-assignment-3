@@ -30,6 +30,9 @@ default: false
     virtuals: true, 
     transform: function(doc, ret) {
       ret.date = formatDate(new Date(ret.date));
+      if (ret.room && typeof ret.room === "object" && ret.room.toString) {
+        ret.room = ret.room.toString();
+      };
       delete ret.id;
       return ret;
     }
@@ -38,7 +41,10 @@ default: false
     virtuals: true,
     transform: function(doc, ret){
       ret.date = formatDate(new Date(ret.date));
-      delete ret.id; // Delete the virtual id field
+      if (ret.room && typeof ret.room === "object" && ret.room.toString) {
+        ret.room = ret.room.toString();
+      };
+      delete ret.id; 
       return ret;
     }
   }
