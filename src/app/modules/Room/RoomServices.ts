@@ -9,11 +9,13 @@ const createRoomIntoDB = async (roomData: TRoom ) => {
 
   return result
 }
+
 const getAllRoomsFromDB = async () => {
   const result = await Room.find()
 
   return result
 }
+
 const getARoomFromDB = async (id: string) => {
   console.log(id)
   if (!mongoose.Types.ObjectId.isValid(id)) {

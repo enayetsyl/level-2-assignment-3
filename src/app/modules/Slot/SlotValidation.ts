@@ -21,6 +21,16 @@ const slotValidationSchema = z.object({
 })
 
 
+const slotUpdateValidationSchema = z.object({
+  body: z.object({
+    room:z.string().optional(),
+    date: z.string().optional(),
+    startTime: timeStringSchema.optional(),
+    endTime: timeStringSchema.optional(),
+    isBooked: z.boolean().optional()
+  })
+})
+
 export const SlotValidation = {
-  slotValidationSchema
+  slotValidationSchema, slotUpdateValidationSchema
 }

@@ -73,8 +73,20 @@ const getAvailableSlots = async () => {
   
 }
 
+const updateSlot = async (id: string, updatedSlotData: Partial<TSlot>) => {
+  const result = await Slot.findByIdAndUpdate(id, updatedSlotData, {new: true, runValidators: true})
+
+  return result
+}
+
+const deleteSlot = async(id: string) => {
+  const result = await Slot.findByIdAndDelete(id)
+
+  return result
+}
+
 
 export const SlotServices = {
   createNewSlot,
-getAvailableSlots
+getAvailableSlots, updateSlot, deleteSlot
 }
