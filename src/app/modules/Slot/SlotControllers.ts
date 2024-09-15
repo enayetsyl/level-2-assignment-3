@@ -30,7 +30,7 @@ const getAllAvailableSlots = catchAsync(async (req, res) => {
 
 const updateSlot = catchAsync(async (req, res) => {
   const { id } = req.params;
-
+console.log('id received', id);
   const result = await SlotServices.updateSlot(id, req.body);
 
   sendResponse(res, {

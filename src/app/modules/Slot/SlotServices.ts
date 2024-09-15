@@ -69,6 +69,8 @@ const getAvailableSlots = async () => {
     path: 'room',
     select: "-__v",
   })
+
+  
   return result
   
 }
