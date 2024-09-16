@@ -29,7 +29,6 @@ const loginUser = catchAsync(async (req, res) => {
     httpOnly: true,
   })
 
-console.log(accessToken, user)
   // Send success response
   sendResponse(res, {
     success: true,

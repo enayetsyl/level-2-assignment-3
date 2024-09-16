@@ -21,7 +21,6 @@ const getARoomFromDB = async (id: string) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     console.error('Invalid Room ID format:', id);
   }
-  console.log('room id is ok')
   const result = await Room.findById(id)
   console.log(result)
   return result

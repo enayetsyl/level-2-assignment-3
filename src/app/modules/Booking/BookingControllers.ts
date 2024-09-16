@@ -6,8 +6,12 @@ import { verifyToken } from "../../utils/authUtils";
 import config from "../../config";
 
 const createBooking = catchAsync(async(req,res) => {
+  
+  
   const result = await BookingServices.createBookingIntoDB(req.body)
-
+  console.log('Booking route called at', new Date().toISOString());
+  
+  console.log('result in create booking controller', result)
 // Send success response
 sendResponse(res, {
   success: true,
@@ -15,6 +19,21 @@ sendResponse(res, {
   message: 'Booking created successfully',
   data: result,
 });
+})
+
+const getAvailableSlotsForBooking = catchAsync(async (req,res) => {
+ 
+
+  const { roomId } = req.params
+  const result = await BookingServices.getAvailableSlotsForBooking(roomId)
+
+  // Send success response
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Available slots retrieved successfully',
+    data: result,
+  });
 })
 
 const getMyBooking = catchAsync(async(req,res) => {
@@ -36,6 +55,7 @@ const getMyBooking = catchAsync(async(req,res) => {
     data: result,
   });
 })
+
 const getAllBookings = catchAsync(async(req,res) => {
   const result = await BookingServices.getAllBookingsFromDB()
 
@@ -47,6 +67,7 @@ const getAllBookings = catchAsync(async(req,res) => {
     data: result,
   });
 })
+
 const updateABooking = catchAsync(async(req,res) => {
   const { id } = req.params;
   const result = await BookingServices.updateBookingIntoDB(id, req.body)
@@ -78,4 +99,5 @@ getMyBooking,
 getAllBookings,
 updateABooking,
 deleteABooking,
+getAvailableSlotsForBooking
 }

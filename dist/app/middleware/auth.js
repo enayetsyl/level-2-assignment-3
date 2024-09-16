@@ -22,12 +22,10 @@ const auth = (...requiredRole) => {
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         let token = req.headers.authorization;
         token = token === null || token === void 0 ? void 0 : token.split(" ")[1];
-        console.log('token', token);
         if (!token) {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "You are not authorized");
         }
         const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secret);
-        console.log('decoded', decoded);
         const { role, email } = decoded;
         const user = yield UserModel_1.User.findOne({ email });
         if (!user) {

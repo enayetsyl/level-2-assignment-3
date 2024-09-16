@@ -6,9 +6,13 @@ import auth from '../../middleware/auth';
 
 const router = express.Router();
 
-router.post('/',auth('user'), validateRequest(BookingValidation.bookingValidationSchema), BookingControllers.createBooking);
+router.post('/',auth('user'), 
+// validateRequest(BookingValidation.bookingValidationSchema), 
+BookingControllers.createBooking);
 
 router.get('/',auth('admin'), BookingControllers.getAllBookings );
+
+router.get('/available-for-booking/:roomId', auth('user'), BookingControllers.getAvailableSlotsForBooking );
 
 router.get('/my-bookings', auth('user'), BookingControllers.getMyBooking );
 

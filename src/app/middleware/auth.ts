@@ -13,8 +13,7 @@ const auth = (...requiredRole: TUserRole[]) => {
     let token = req.headers.authorization
 
     token = token?.split(" ")[1]
-    console.log('token', token)
-
+    console.log('token')
     if(!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized")
     }
@@ -23,10 +22,9 @@ const auth = (...requiredRole: TUserRole[]) => {
       token, config.jwt_access_secret as string,
     )
 
-    console.log('decoded', decoded)
 
     const { role, email } = decoded;
-
+console.log('decoded ', decoded)
     const user = await User.findOne({email})
 
     if (!user) {

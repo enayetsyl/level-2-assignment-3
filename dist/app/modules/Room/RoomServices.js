@@ -28,7 +28,6 @@ const getARoomFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
         console.error('Invalid Room ID format:', id);
     }
-    console.log('room id is ok');
     const result = yield RoomModel_1.Room.findById(id);
     console.log(result);
     return result;
