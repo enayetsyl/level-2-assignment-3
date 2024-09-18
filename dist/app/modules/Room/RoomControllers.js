@@ -28,7 +28,9 @@ const createRoom = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     });
 }));
 const getAllRooms = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield RoomServices_1.RoomServices.getAllRoomsFromDB();
+    const filters = req.query;
+    console.log('Received query parameters:', req.query);
+    const result = yield RoomServices_1.RoomServices.getAllRoomsFromDB(filters);
     // Send success response
     (0, sendResponse_1.default)(res, {
         success: true,

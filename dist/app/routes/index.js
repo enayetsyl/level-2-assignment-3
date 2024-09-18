@@ -5,6 +5,7 @@ const UserRoute_1 = require("../modules/User/UserRoute");
 const RoomRoutes_1 = require("../modules/Room/RoomRoutes");
 const SlotRoute_1 = require("../modules/Slot/SlotRoute");
 const BookingRoutes_1 = require("../modules/Booking/BookingRoutes");
+const PaymentRoute_1 = require("../modules/Payment/PaymentRoute");
 const router = (0, express_1.Router)();
 const moduleRoutes = [
     {
@@ -22,7 +23,11 @@ const moduleRoutes = [
     {
         path: '/bookings',
         route: BookingRoutes_1.BookingRoutes,
-    }
+    },
+    {
+        path: '/payment',
+        route: PaymentRoute_1.PaymentRoutes,
+    },
 ];
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
 exports.default = router;

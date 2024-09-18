@@ -15,11 +15,18 @@ const notFound_1 = __importDefault(require("./app/middleware/notFound"));
 const routes_1 = __importDefault(require("./app/routes"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const app = (0, express_1.default)();
+const allowedOrigins = [
+    'http://localhost:5173', // Local development
+    'https://your-production-url.com', // Replace with your production frontend URL
+];
 //parsers
 app.use(body_parser_1.default.json());
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-app.use((0, cors_1.default)({ origin: '*' }));
+app.use((0, cors_1.default)({
+    origin: allowedOrigins,
+    credentials: true, // Allow cookies or other credentials
+}));
 // application routes
 app.use('/api/', routes_1.default);
 // Global Error Handler

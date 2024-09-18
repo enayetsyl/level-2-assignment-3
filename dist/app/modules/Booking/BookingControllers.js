@@ -21,11 +21,24 @@ const authUtils_1 = require("../../utils/authUtils");
 const config_1 = __importDefault(require("../../config"));
 const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield BookingServices_1.BookingServices.createBookingIntoDB(req.body);
+    console.log('Booking route called at', new Date().toISOString());
+    console.log('result in create booking controller', result);
     // Send success response
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
         message: 'Booking created successfully',
+        data: result,
+    });
+}));
+const getAvailableSlotsForBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { roomId } = req.params;
+    const result = yield BookingServices_1.BookingServices.getAvailableSlotsForBooking(roomId);
+    // Send success response
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Available slots retrieved successfully',
         data: result,
     });
 }));
@@ -81,4 +94,5 @@ exports.BookingControllers = {
     getAllBookings,
     updateABooking,
     deleteABooking,
+    getAvailableSlotsForBooking
 };

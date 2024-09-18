@@ -67,7 +67,15 @@ const getAvailableSlots = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     return result;
 });
+const updateSlot = (id, updatedSlotData) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield SlotModel_1.Slot.findByIdAndUpdate(id, updatedSlotData, { new: true, runValidators: true });
+    return result;
+});
+const deleteSlot = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield SlotModel_1.Slot.findByIdAndDelete(id);
+    return result;
+});
 exports.SlotServices = {
     createNewSlot,
-    getAvailableSlots
+    getAvailableSlots, updateSlot, deleteSlot
 };

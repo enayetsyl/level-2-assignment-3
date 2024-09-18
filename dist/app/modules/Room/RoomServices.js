@@ -19,8 +19,27 @@ const createRoomIntoDB = (roomData) => __awaiter(void 0, void 0, void 0, functio
     const result = yield RoomModel_1.Room.create(roomData);
     return result;
 });
-const getAllRoomsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield RoomModel_1.Room.find();
+const getAllRoomsFromDB = (filters) => __awaiter(void 0, void 0, void 0, function* () {
+    let queryObject = {};
+    let sortOption = {};
+    const { name, capacity, maxPrice, sortBy, sortOrder } = filters;
+    // Filters
+    if (name) {
+        queryObject.name = { $regex: name, $options: "i" };
+    }
+    if (capacity) {
+        queryObject.capacity = { $gte: Number(capacity) };
+    }
+    if (maxPrice) {
+        queryObject.pricePerSlot = { $lte: Number(maxPrice) };
+    }
+    // Sort Options
+    if (sortBy) {
+        const sortField = sortBy;
+        const sortOrderValue = sortOrder === "desc" ? -1 : 1;
+        sortOption[sortField] = sortOrderValue;
+    }
+    const result = yield RoomModel_1.Room.find(queryObject).sort(sortOption);
     return result;
 });
 const getARoomFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,6 +53,7 @@ const getARoomFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const updateARoomIntoDB = (id, updatedRoomData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield RoomModel_1.Room.findByIdAndUpdate(id, updatedRoomData, { new: true, runValidators: true });
+    console.log('result', result);
     return result;
 });
 const deleteRoom = (id) => __awaiter(void 0, void 0, void 0, function* () {

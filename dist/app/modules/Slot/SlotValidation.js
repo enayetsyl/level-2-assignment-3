@@ -17,6 +17,13 @@ const slotValidationSchema = zod_1.z.object({
         isBooked: zod_1.z.boolean().default(false)
     })
 });
+const slotUpdateValidationSchema = zod_1.z.object({
+    room: zod_1.z.string().optional(),
+    date: zod_1.z.string().optional(),
+    startTime: timeStringSchema.optional(),
+    endTime: timeStringSchema.optional(),
+    isBooked: zod_1.z.boolean().optional()
+});
 exports.SlotValidation = {
-    slotValidationSchema
+    slotValidationSchema, slotUpdateValidationSchema
 };

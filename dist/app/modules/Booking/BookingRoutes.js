@@ -10,8 +10,11 @@ const validateRequest_1 = __importDefault(require("../../middleware/validateRequ
 const BookingValidation_1 = require("./BookingValidation");
 const auth_1 = __importDefault(require("../../middleware/auth"));
 const router = express_1.default.Router();
-router.post('/', (0, auth_1.default)('user'), (0, validateRequest_1.default)(BookingValidation_1.BookingValidation.bookingValidationSchema), BookingControllers_1.BookingControllers.createBooking);
+router.post('/', (0, auth_1.default)('user'), 
+// validateRequest(BookingValidation.bookingValidationSchema), 
+BookingControllers_1.BookingControllers.createBooking);
 router.get('/', (0, auth_1.default)('admin'), BookingControllers_1.BookingControllers.getAllBookings);
+router.get('/available-for-booking/:roomId', (0, auth_1.default)('user'), BookingControllers_1.BookingControllers.getAvailableSlotsForBooking);
 router.get('/my-bookings', (0, auth_1.default)('user'), BookingControllers_1.BookingControllers.getMyBooking);
 router.put('/:id', (0, auth_1.default)('admin'), (0, validateRequest_1.default)(BookingValidation_1.BookingValidation.bookingValidationUpdateSchema), BookingControllers_1.BookingControllers.updateABooking);
 router.delete('/:id', (0, auth_1.default)('admin'), BookingControllers_1.BookingControllers.deleteABooking);

@@ -38,7 +38,7 @@ const slotModel = new mongoose_1.Schema({
         virtuals: true,
         transform: function (doc, ret) {
             ret.date = (0, exports.formatDate)(new Date(ret.date));
-            delete ret.id; // Delete the virtual id field
+            delete ret.id;
             return ret;
         }
     }
