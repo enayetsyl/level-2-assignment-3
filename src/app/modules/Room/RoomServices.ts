@@ -10,11 +10,36 @@ const createRoomIntoDB = async (roomData: TRoom ) => {
   return result
 }
 
-const getAllRoomsFromDB = async () => {
-  const result = await Room.find()
+const getAllRoomsFromDB = async (filters: any) => {
+  let queryObject: any = {};
+  let sortOption: any = {};
 
-  return result
-}
+  const { name, capacity, maxPrice, sortBy, sortOrder } = filters;
+
+  // Filters
+  if (name) {
+    queryObject.name = { $regex: name, $options: "i" };
+  }
+
+  if (capacity) {
+    queryObject.capacity = { $gte: Number(capacity) };
+  }
+
+  if (maxPrice) {
+    queryObject.pricePerSlot = { $lte: Number(maxPrice) };
+  }
+
+  // Sort Options
+  if (sortBy) {
+    const sortField = sortBy;
+    const sortOrderValue = sortOrder === "desc" ? -1 : 1;
+    sortOption[sortField] = sortOrderValue;
+  }
+
+  const result = await Room.find(queryObject).sort(sortOption);
+
+  return result;
+};
 
 const getARoomFromDB = async (id: string) => {
   console.log(id)

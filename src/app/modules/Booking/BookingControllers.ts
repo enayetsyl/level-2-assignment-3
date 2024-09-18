@@ -101,3 +101,4 @@ updateABooking,
 deleteABooking,
 getAvailableSlotsForBooking
 }
+

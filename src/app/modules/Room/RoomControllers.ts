@@ -20,7 +20,8 @@ const createRoom = catchAsync(async (req,res) => {
 
 
 const getAllRooms = catchAsync(async (req,res) => {
-  const result = await RoomServices.getAllRoomsFromDB()
+  const filters = req.query;
+  const result = await RoomServices.getAllRoomsFromDB(filters);
 
   // Send success response
   sendResponse(res, {
