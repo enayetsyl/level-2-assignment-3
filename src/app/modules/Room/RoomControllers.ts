@@ -21,6 +21,7 @@ const createRoom = catchAsync(async (req,res) => {
 
 const getAllRooms = catchAsync(async (req,res) => {
   const filters = req.query;
+  console.log('Received query parameters:', req.query);
   const result = await RoomServices.getAllRoomsFromDB(filters);
 
   // Send success response
