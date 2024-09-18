@@ -14,7 +14,7 @@ const app: Application = express();
 
 const allowedOrigins = [
   'http://localhost:5173', // Local development
-  'https://your-production-url.com', // Replace with your production frontend URL
+  'https://meet-space-theta.vercel.app', // Replace with your production frontend URL
 ];
 
 //parsers
