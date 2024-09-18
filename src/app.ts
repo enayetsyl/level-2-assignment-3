@@ -16,7 +16,7 @@ const app: Application = express();
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: ['http://localhost:5000'] }));
 
 // application routes
 app.use('/api/', router);
