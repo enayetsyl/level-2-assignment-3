@@ -12,11 +12,19 @@ import bodyParser from 'body-parser';
 
 const app: Application = express();
 
+const allowedOrigins = [
+  'http://localhost:5173', // Local development
+  'https://your-production-url.com', // Replace with your production frontend URL
+];
+
 //parsers
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: ['http://localhost:5173'] }));
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true, // Allow cookies or other credentials
+}));
 
 // application routes
 app.use('/api/', router);
